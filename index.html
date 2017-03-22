@@ -191,7 +191,7 @@
 <p>方法：将白名单导入redis集合，利用<em>redis的 SISMEMBER xxx xxx</em> 命令可以快四判断订单号是否在集合中，并进行相应的逻辑处理</p>
 <h3 id="2-统计需求"><a href="#2-统计需求" class="headerlink" title="2. 统计需求"></a>2. 统计需求</h3><p>交易可视化项目，交易绑定用户数量的统计</p>
 <p>统计的挑战：交易用户数据存储在交易这边的数据库中，掌链用户保存在二手外网的数据库里，<em>数据源不同</em>，<em>实时统计数据库压力会比较大</em></p>
-<p>集合示意:<br><img src="http://7xntis.com1.z0.glb.clouddn.com/set_statistic.jpg =500x400" alt="说明文本"></p>
+<p>集合示意:<br><img src="http://7xntis.com1.z0.glb.clouddn.com/set_statistic.jpg" alt="说明文本"></p>
 <p>通过将集合A与集合C做交集，然后写入集合B，就可以完成统计需求</p>
 <h2 id="redis插入大量数据"><a href="#redis插入大量数据" class="headerlink" title="redis插入大量数据"></a>redis插入大量数据</h2><p><a href="https://redis.io/topics/mass-insert" target="_blank" rel="external">参考官方文档</a></p>
 <p>可以通过两种方式完成</p>
