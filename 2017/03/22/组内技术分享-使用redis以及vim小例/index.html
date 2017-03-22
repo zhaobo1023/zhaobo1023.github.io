@@ -6,14 +6,83 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2017 | Hexo</title>
+  <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="组内技术分享-利用redis完成开发需求
+赵铂 2017-03-11
+
+redis集合使用我们在开发过程中可以利用redis提供的数据结构来更好的完成开发任务
+redis提供的五种数据结构
+
+字符串
+列表
+集合
+散列
+有序集合
+
+集合相关的命令如下，可以利用集合特点完成开发任务
+
+SADD
+SCARD
+SDIFF
+SDIFFSTORE
+SINTER
+SINTERSTORE
+SISMEMBER
+SM">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/2017/index.html">
+<meta property="og:url" content="http://yoursite.com/2017/03/22/组内技术分享-使用redis以及vim小例/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="组内技术分享-利用redis完成开发需求
+赵铂 2017-03-11
+
+redis集合使用我们在开发过程中可以利用redis提供的数据结构来更好的完成开发任务
+redis提供的五种数据结构
+
+字符串
+列表
+集合
+散列
+有序集合
+
+集合相关的命令如下，可以利用集合特点完成开发任务
+
+SADD
+SCARD
+SDIFF
+SDIFFSTORE
+SINTER
+SINTERSTORE
+SISMEMBER
+SM">
+<meta property="og:image" content="http://7xntis.com1.z0.glb.clouddn.com/set_statistic.jpg =500x400">
+<meta property="og:updated_time" content="2017-03-22T13:17:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="组内技术分享-利用redis完成开发需求
+赵铂 2017-03-11
+
+redis集合使用我们在开发过程中可以利用redis提供的数据结构来更好的完成开发任务
+redis提供的五种数据结构
+
+字符串
+列表
+集合
+散列
+有序集合
+
+集合相关的命令如下，可以利用集合特点完成开发任务
+
+SADD
+SCARD
+SDIFF
+SDIFFSTORE
+SINTER
+SINTERSTORE
+SISMEMBER
+SM">
+<meta name="twitter:image" content="http://7xntis.com1.z0.glb.clouddn.com/set_statistic.jpg =500x400">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -149,145 +218,220 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-组内技术分享-使用redis以及vim小例" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="组内技术分享-利用redis完成开发需求"><a href="#组内技术分享-利用redis完成开发需求" class="headerlink" title="组内技术分享-利用redis完成开发需求"></a>组内技术分享-利用redis完成开发需求</h1><blockquote>
+<p><em>赵铂 2017-03-11</em></p>
+</blockquote>
+<h2 id="redis集合使用"><a href="#redis集合使用" class="headerlink" title="redis集合使用"></a>redis集合使用</h2><p>我们在开发过程中可以利用redis提供的数据结构来更好的完成开发任务</p>
+<p>redis提供的五种数据结构</p>
+<ul>
+<li>字符串</li>
+<li>列表</li>
+<li>集合</li>
+<li>散列</li>
+<li>有序集合</li>
+</ul>
+<p>集合相关的命令如下，可以利用集合特点完成开发任务</p>
+<ul>
+<li>SADD</li>
+<li>SCARD</li>
+<li>SDIFF</li>
+<li>SDIFFSTORE</li>
+<li>SINTER</li>
+<li>SINTERSTORE</li>
+<li>SISMEMBER</li>
+<li>SMEMBERS</li>
+<li>SMOVE</li>
+<li>SPOP</li>
+<li>SRANDMEMBER</li>
+<li>SREM</li>
+<li>SSCAN</li>
+<li>SUNION</li>
+<li>SUNIONSTORE</li>
+</ul>
+<h3 id="1-开发需求"><a href="#1-开发需求" class="headerlink" title="1. 开发需求"></a>1. 开发需求</h3><p>交易可视化项目，网签白名单特殊逻辑处理</p>
+<p>场景：白名单数量大概3W单，需要针对白名单的订单好进行特殊逻辑处理</p>
+<p>方法：将白名单导入redis集合，利用<em>redis的 SISMEMBER xxx xxx</em> 命令可以快四判断订单号是否在集合中，并进行相应的逻辑处理</p>
+<h3 id="2-统计需求"><a href="#2-统计需求" class="headerlink" title="2. 统计需求"></a>2. 统计需求</h3><p>交易可视化项目，交易绑定用户数量的统计</p>
+<p>统计的挑战：交易用户数据存储在交易这边的数据库中，掌链用户保存在二手外网的数据库里，<em>数据源不同</em>，<em>实时统计数据库压力会比较大</em></p>
+<p>集合示意:<br><img src="http://7xntis.com1.z0.glb.clouddn.com/set_statistic.jpg =500x400" alt="说明文本"></p>
+<p>通过将集合A与集合C做交集，然后写入集合B，就可以完成统计需求</p>
+<h2 id="redis插入大量数据"><a href="#redis插入大量数据" class="headerlink" title="redis插入大量数据"></a>redis插入大量数据</h2><p><a href="https://redis.io/topics/mass-insert" target="_blank" rel="external">参考官方文档</a></p>
+<p>可以通过两种方式完成</p>
+<h3 id="1-使用redis协议和pipeline快速插入数据"><a href="#1-使用redis协议和pipeline快速插入数据" class="headerlink" title="1.使用redis协议和pipeline快速插入数据"></a>1.使用redis协议和pipeline快速插入数据</h3><p>redis协议说明 参考 <a href="http://redis.cn/topics/protocol.html" target="_blank" rel="external">redis协议说明</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">*&lt;number of arguments&gt; CR LF</div><div class="line">$&lt;number of bytes of argument 1&gt; CR LF</div><div class="line">&lt;argument data&gt; CR LF</div><div class="line">...</div><div class="line">$&lt;number of bytes of argument N&gt; CR LF</div><div class="line">&lt;argument data&gt; CR LF</div></pre></td></tr></table></figure>
+<p>生成的例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">*3</div><div class="line">$3</div><div class="line">SET</div><div class="line">$5</div><div class="line">mykey</div><div class="line">$7</div><div class="line">myvalue</div></pre></td></tr></table></figure>
+<p>注意点，注意多个命令间的空格，会造成插入的值不正确</p>
+<p>一段处理数据的ruby代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">def gen_redis_proto(*cmd)</div><div class="line">    proto = &quot;&quot;</div><div class="line">    proto &lt;&lt; &quot;*&quot;+cmd.length.to_s+&quot;\r\n&quot;</div><div class="line">    cmd.each&#123;|arg|</div><div class="line">       proto &lt;&lt; &quot;$&quot;+arg.to_s.bytesize.to_s+&quot;\r\n&quot;</div><div class="line">       proto &lt;&lt; arg.to_s+&quot;\r\n&quot;</div><div class="line">    &#125;</div><div class="line">    proto</div><div class="line">end</div><div class="line"></div><div class="line">newFile.syswrite(gen_redis_proto(&quot;SADD&quot;,&quot;wang_qian_white_list&quot;,&quot;#&#123;n&#125;&quot;.rstrip))</div></pre></td></tr></table></figure>
+<p>生成的多条redis命令，注意命令间是紧挨着</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">*3</div><div class="line">$4</div><div class="line">SADD</div><div class="line">$20</div><div class="line">wang_qian_white_list</div><div class="line">$3</div><div class="line">717</div><div class="line">*3</div><div class="line">$4</div><div class="line">SADD</div><div class="line">$20</div><div class="line">wang_qian_white_list</div><div class="line">$3</div><div class="line">982</div><div class="line">*3</div><div class="line">$4</div><div class="line">SADD</div><div class="line">$20</div><div class="line">wang_qian_white_list</div><div class="line">$4</div><div class="line">1458</div></pre></td></tr></table></figure>
+<p>pipeline说明：</p>
+<p>批量导入数据:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat data_cmd | redis-cli -h 10.10.35.13 -p 6378 --pipe</div></pre></td></tr></table></figure>
+<p>更为复杂的命令，可以考虑使用lua脚本进行编程开发</p>
+<h3 id="2-从文件中批量导入"><a href="#2-从文件中批量导入" class="headerlink" title="2.从文件中批量导入"></a>2.从文件中批量导入</h3><p>首先生成批量插入的命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">SADD &quot;wang_qian_white_list&quot; 717</div><div class="line">SADD &quot;wang_qian_white_list&quot; 982</div><div class="line">SADD &quot;wang_qian_white_list&quot; 1458</div><div class="line">SADD &quot;wang_qian_white_list&quot; 337</div><div class="line">SADD &quot;wang_qian_white_list&quot; 942</div><div class="line">SADD &quot;wang_qian_white_list&quot; 138</div><div class="line">SADD &quot;wang_qian_white_list&quot; 436</div><div class="line">SADD &quot;wang_qian_white_list&quot; 583</div><div class="line">SADD &quot;wang_qian_white_list&quot; 4584</div><div class="line">SADD &quot;wang_qian_white_list&quot; 250</div><div class="line">SADD &quot;wang_qian_white_list&quot; 1365</div><div class="line">SADD &quot;wang_qian_white_list&quot; 89</div><div class="line">SADD &quot;wang_qian_white_list&quot; 260</div></pre></td></tr></table></figure>
+<p>redis-cli中只支持dos格式的换行符 \r\n ，如果你在Linux下、Mac下或者Windows下创建的文件，最好都转个码。没有转码的文件,执行会失败</p>
+<p>使用下面命令导入数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat test_insert.data | redis-cli -h  10.10.35.13 -p 6378</div></pre></td></tr></table></figure>
+<h2 id="一则vim小技巧分享-利用vim的宏快速完成重复的任务"><a href="#一则vim小技巧分享-利用vim的宏快速完成重复的任务" class="headerlink" title="一则vim小技巧分享-利用vim的宏快速完成重复的任务"></a>一则vim小技巧分享-利用vim的宏快速完成重复的任务</h2><p>我们可以把任意数目的按键操作录制到寄存器，然后用于命令回放</p>
+<p>命令分解</p>
+<table>
+<thead>
+<tr>
+<th>按键操作</th>
+<th>缓冲区内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>qa</td>
+<td>开始宏录制并将命令写入a寄存器</td>
+</tr>
+<tr>
+<td>^</td>
+<td>将光标置于每行行首</td>
+</tr>
+<tr>
+<td>i</td>
+<td>插入文本</td>
+</tr>
+<tr>
+<td><esc></esc></td>
+<td>退出插入模式</td>
+</tr>
+<tr>
+<td>j</td>
+<td>将光标定于下一行</td>
+</tr>
+<tr>
+<td>q</td>
+<td>结束录制宏</td>
+</tr>
+<tr>
+<td>n@a</td>
+<td>n次回放宏</td>
+</tr>
+</tbody>
+</table>
+<p>可以使用下面的命令读取当前寄存器的命令 :reg a</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/blog/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/blog/2017/03/22/组内技术分享-使用redis以及vim小例/" class="archive-article-date">
-  	<time datetime="2017-03-22T13:16:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-22</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/03/22/组内技术分享-使用redis以及vim小例/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/blog/2017/03/22/wordProcess接入外部CAS/" class="archive-article-date">
-  	<time datetime="2017-03-22T13:14:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-22</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/blog/2017/03/22/My-New-Post-1/" class="archive-article-date">
-  	<time datetime="2017-03-22T09:23:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-22</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2017/03/22/My-New-Post-1/">My New Post</a>
-    </h1>
+  
+    <a href="/blog/2017/03/22/wordProcess接入外部CAS/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title"></div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+  
+    <div class="duoshuo"></div>
   
 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/blog/2017/03/22/My-New-Post/" class="archive-article-date">
-  	<time datetime="2017-03-22T04:19:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2017/03/22/My-New-Post/">My New Post</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/blog/2017/03/22/hello-world/" class="archive-article-date">
-  	<time datetime="2017-03-22T04:16:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2017/03/22/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -310,8 +454,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
