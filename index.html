@@ -151,6 +151,87 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-利用hexo-githubpages搭建个人博客" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2017/03/23/利用hexo-githubpages搭建个人博客/">利用hexo+githubpages搭建个人博客</a>
+    </h1>
+  
+
+        
+        <a href="/blog/2017/03/23/利用hexo-githubpages搭建个人博客/" class="archive-article-date">
+  	<time datetime="2017-03-22T23:39:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="利用hexo-githubpage-搭建个人博客"><a href="#利用hexo-githubpage-搭建个人博客" class="headerlink" title="利用hexo + githubpage 搭建个人博客"></a>利用hexo + githubpage 搭建个人博客</h1><blockquote>
+<p>赵铂 2017-03-22</p>
+</blockquote>
+<p>考虑着想搭个个人的博客写点文章,看到了阮一峰的文章 ：<br><a href="http://www.ruanyifeng.com/blog/2012/08/blogging_with_jekyll.html" target="_blank" rel="external">《搭建一个免费的，无限流量的Blog—-github Pages和Jekyll入门》</a></p>
+<p>打算自己搭个个人博客玩玩，按着步骤来，很简单就搭好了。</p>
+<p>又看到现在Hexo很火，想在加个hexo玩玩，一搜，这么玩的人不少，先找了hexo的官网 <a href="https://hexo.io" target="_blank" rel="external">hexo官网</a></p>
+<p>按照步骤装了一下hexo，可能由于node和npm的版本比较低，在做<code>nexo init blog</code>这一步的时候卡住不动了，进到生成的blog目录下发现无法进行下面的命令，试图升级npm，发现越搞越乱，索引删了npm重装，重装过后都还算顺利，但是有些地方还是需要注意。下面算是做个记录吧</p>
+<ol>
+<li>访问主页发现静态文件404，发现是静态文件的目录不对，就看_config.yml文件，发现能配置root,默认配置的是root: / 但是我在githubpages上的默认目录路径是 /blog/, 配置好问题就解决了</li>
+<li>生成文件后，直接拷贝到source/_post目录下然后提交，发现不生效，可能还得先<code>hexo new xxx</code>然后将写好的md文件拷贝过来才能生效，这块有待进一步学习</li>
+<li>每次都需要输入github的用户名密码，开始以为是ssh的key过期了，上github的设置里一看，key没有问题，找到一篇文章，说需要修改<code>_config.yml</code>,修改 <code>repo: git@github.com:zhaobo1023/zhaobo1023.github.io.git</code> (原来是 repo: <a href="https://github.com/zhaobo1023/blog.git),改完之后就好使，具体为啥有待研究，难道跟https有关？" target="_blank" rel="external">https://github.com/zhaobo1023/blog.git),改完之后就好使，具体为啥有待研究，难道跟https有关？</a></li>
+</ol>
+<hr>
+<p>剩下待解决的问题，后面更新</p>
+<ol>
+<li>点击所有文章的时候，报错：缺失模块 在博客根目录（注意不是yilia根目录）执行以下命令：<br>npm i hexo-generator-json-content –save … 按照命令安装后每次deploy都报 <code>ERROR Plugin load failed: hexo-generator-json-content</code></li>
+<li>安装一些常用的插件，研究下排版布局标签评论分享打赏等</li>
+<li>申请域名绑定个人域名</li>
+<li>研究下如何插入图片，使用七牛cdn，用于展示一些个人拍的小片</li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">sumup</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/blog/2017/03/23/利用hexo-githubpages搭建个人博客/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-组内技术分享-使用redis以及vim小例" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -436,6 +517,10 @@
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">sumup</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
